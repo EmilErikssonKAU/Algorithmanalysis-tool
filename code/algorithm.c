@@ -4,7 +4,25 @@
 // Private
 //
 
+static void swap(int* a, int* b) {
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
+
 static int partition(int* a, int low, int high){
+	// high pivot implementation
+	int pivot = a[high];
+	int i = low-1;
+
+	for(int j=low; j <= high-1; j++){
+		if(a[j] < pivot){
+			i++;
+			swap(a+i,a+j);
+		}
+	}
+	swap(a+i+1,a+high);
+	return i + 1;
 	
 }
 
@@ -12,10 +30,10 @@ static void quick_sort_recursion(int* a, int low, int high){
 	if(low < high){
 		int piv = partition(a, low, high);
 
-		// sort left of pivot
+		// sort left-side of pivot
 		quick_sort_recursion(a, low, piv-1);
 
-		// sort right of pivot
+		// sort right-side of pivot
 		quick_sort_recursion(a, piv+1, high);
 
 	}
@@ -35,9 +53,7 @@ void bubble_sort(int *a, int n)
 		for(int j=0; j < i; j++){
 			if(a[j] > a[j+1]){
 				//swap
-				int temp = a[j];
-				a[j] = a[j+1];
-				a[j+1] = temp; 
+				swap(a+j,a+j+1);
 				swapped = true;
 			}
 		}
@@ -74,8 +90,8 @@ void quick_sort(int *a, int n)
 
 bool linear_search(const int *a, int n, int v)
 {
-	// Pre: 'a' is an array of n integers, v is the value to be searched for
-	// Post: returns 'true' if v is in 'a', returns 'false' if not
+	// Pre: 	'a' is an array of n integers, v is the value to be searched for
+	// Post:	returns 'true' if v is in 'a', returns 'false' if not
 
 	for(int i=0; i<n; i++){
 		if(a[i]==v)
@@ -86,8 +102,8 @@ bool linear_search(const int *a, int n, int v)
 
 bool binary_search(const int *a, int n, int v)
 {
-	// Pre: 'a' is a sorted array of n integers, v is the value to be searched for
-	// Post: returns 'true' if v is in 'a', returns 'false' if not
+	// Pre: 	'a' is a sorted array of n integers, v is the value to be searched for
+	// Post: 	returns 'true' if v is in 'a', returns 'false' if not
 	int low = 0;
 	int high =  n-1;
 	int middle;
