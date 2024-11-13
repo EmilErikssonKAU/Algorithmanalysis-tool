@@ -5,6 +5,12 @@
 //
 // Private
 //
+
+/**
+ * @brief Empty the input buffer until EOF or '\n' is reached
+ * 
+ */
+
 static void empty_stream()
 {
 	int c;
@@ -16,6 +22,16 @@ static void empty_stream()
 //
 // Public
 //
+
+/**
+ * @brief Read line
+ * 
+ * @param buf Pointer to char array
+ * @param n Length of char array
+ * @return The number of chars read, 0 if error occurs
+ * 
+ */
+
 int read_line(char *buf, int n)
 {
 	int buf_size;

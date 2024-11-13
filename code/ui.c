@@ -8,15 +8,33 @@
 //
 // Private
 //
+
+/**
+ * @brief Display bad input message.
+ * 
+ */
+
 static void ui_invalid_input()
 {
 	printf("info> bad input\n");
 }
 
+/**
+ * @brief Display exit message.
+ * 
+ */
+
 static void ui_exit()
 {
 	printf("info> bye\n");
 }
+
+
+/**
+ * @brief Displays prompt. Then reads up to 2 characters from stdin.
+ * 
+ * @return The first character read if successfull. 0 if unsucessfull.
+ */
 
 static char ui_get_choice()
 {
@@ -26,6 +44,14 @@ static char ui_get_choice()
 	return read_line(buf, 3) ? buf[0] : 0;
 }
 
+
+/**
+ * @brief Prints 'n' chars of type 'c'. Print newline.
+ * 
+ * @param c The char to be printed.
+ * @param n Number of times to print the char.
+ */
+
 static void ui_line(char c, int n)
 {
 	while (n-- > 0) {
@@ -33,6 +59,13 @@ static void ui_line(char c, int n)
 	}
 	putchar('\n');
 }
+
+/**
+ * @brief Prints a list of menu options with alphabetic labels.
+ * 
+ * @param options An array of strings.
+ * @param num_options The number of strings to be printed from the array.
+ */
 
 static void ui_menu_options(const char *options[], int num_options)
 {
@@ -43,12 +76,34 @@ static void ui_menu_options(const char *options[], int num_options)
 	}
 }
 
+/**
+ * @brief Prints the menu options available to the user.
+ * 
+ */
+
+
 static void ui_menu()
 {
 	const char *options[] = {
 		"Menu",
 		"Exit\n",
 		"Bubble sort best case",
+		"Bubble sort worst case",
+		"Bubble sort average case\n",
+		"Insertion sort best case",
+		"Insertion sort worst case",
+		"Insertion sort average case\n",
+		"Quick sort best case",
+		"Quick sort worst case",
+		"Quick sort average case\n",
+		"Linear search best case",
+		"Linear search worst case",
+		"Linear search average case\n",
+		"Binary search best case",
+		"Binary search worst case",
+		"Binary search average case"
+
+
 		// TODO: complete menu
 	};
 
@@ -60,6 +115,8 @@ static void ui_menu()
 //
 // Public
 //
+
+
 void ui_run()
 {
 	bool running, show_menu;
@@ -83,8 +140,17 @@ void ui_run()
 			// Bubble sort
 			case 'c':
 				benchmark(bubble_sort_t, best_t, result, RESULT_ROWS);
-				printf("todo> implemenet BE + present results in FE\n");
+				printf("todo> implement\n");
 				break;
+			case 'd': 
+				benchmark(bubble_sort_t, worst_t, result, RESULT_ROWS);
+				printf("todo> implement\n");
+				break;
+			case 'e': 
+				benchmark(bubble_sort_t, average_t, result, RESULT_ROWS);
+				printf("todo> implement\n");
+				break;
+				
 			// Invalid input
 			default:
 				show_menu = false;
