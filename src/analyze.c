@@ -1,5 +1,5 @@
-#include "analyze.h"
-#include "algorithm.h"
+#include "../include/analyze.h"
+#include "../include/algorithm.h"
 
 //
 // Private

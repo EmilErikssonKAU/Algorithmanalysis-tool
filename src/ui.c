@@ -1,6 +1,6 @@
-#include "ui.h"
-#include "io.h"
-#include "analyze.h"
+#include "../include/ui.h"
+#include "../include/io.h"
+#include "../include/analyze.h"
 
 #include <stdbool.h>
 #include <stdio.h>
