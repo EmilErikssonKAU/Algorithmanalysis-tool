@@ -24,4 +24,12 @@ int* getSortedDescendingArray(int size);
 
 int* getRandomizedArray(int size);
 
+array_and_value* getBestCaseLinearSearch(int size);
+
+array_and_value* getWorstCaseLinearSearch(int size);
+
+array_and_value* getBestCaseBinarySearch(int size);
+
+array_and_value* getWorstCaseBinarySearch(int size);
+
 #endif

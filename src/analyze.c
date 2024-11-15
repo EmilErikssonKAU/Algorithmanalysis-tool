@@ -12,26 +12,19 @@
 #include <time.h>
     
 
-//
-// Private
-//
-
-
 
 //
 // Public
 //
 
 /**
- * @brief 
+ * @brief Simulates a case of an algorithm. 
  * 
  * @param a Algorithm to be simulated.
  * @param c Case to test.
  * @param buf Array of result_t, stores information about size, runtime.
  * @param n Number of unique runs.
  * 
- * @pre
- * @post
  */
 
 void benchmark(const algorithm_t a, const case_t c, result_t *buf, int n)
@@ -115,6 +108,14 @@ void benchmark(const algorithm_t a, const case_t c, result_t *buf, int n)
     ui_print_results(buf, n);
 }
 
+/**
+ * @brief Simulates sorting of arrays of multiple sizes. Stores data about sizes and execution time in buf.
+ * 
+ * @param sfunc Sorting-function to use.
+ * @param afunc Array-generating function to use.
+ * @param buf Struct for storing array-size and average execution time.
+ * @param n Number of array-sizes to simulate.
+ */
 
 void simulate_sort(sort_func sfunc, array_func afunc, result_t* buf, int n)
 {
@@ -129,14 +130,33 @@ void simulate_sort(sort_func sfunc, array_func afunc, result_t* buf, int n)
 
 }
 
+
+/**
+ * @brief Simulates searching of arrays of multiple sizes. Stores data about sizes and execution time in buf.
+ * 
+ * @param sfunc Sorting-function to use.
+ * @param afunc Array- and value-generating function to be used.
+ * @param buf Struct for storing array-size and average execution time.
+ * @param n Number of array-sizes to simulate.
+ */
+
+
 void simulate_search(search_func sfunc, array_search_func afunc, result_t* buf, int n)
 {
     // TODO: warmup
 
-
+    // TODO: everything else
 
 }
 
+/**
+ * @brief Records the time of a sort-function to sort a give array.
+ * 
+ * @param sfunc Sort-function.
+ * @param array Array to be sorted.
+ * @param size Size of the array.
+ * @return Execution time.
+ */
 
 int time_sort_function(sort_func sfunc, int* array, int size){
     struct timespec start, end;
@@ -148,6 +168,14 @@ int time_sort_function(sort_func sfunc, int* array, int size){
     return end.tv_nsec - start.tv_nsec;
 
 }
+/**
+ * @brief Records the time of a search-function to search an array for a given element.
+ * 
+ * @param sfunc Search-function.
+ * @param a_v Struct with an array and the element to find within it.
+ * @param size Size of the array.
+ * @return Execution time.
+ */
 
 int time_search_function(search_func sfunc, array_and_value* a_v, int size){
     struct timespec start, end;    
@@ -159,6 +187,16 @@ int time_search_function(search_func sfunc, array_and_value* a_v, int size){
     return end.tv_nsec - start.tv_nsec;
 }
 
+
+/**
+ * @brief Calculates the average result of multiple executions of a sort-function.
+ * 
+ * @param sfunc Sort-function.
+ * @param afunc Function for array generation.
+ * @param size Size of the array.
+ * @return Average execution time.
+ */
+
 int average_time_sort_function(sort_func sfunc, array_func afunc, int size){
     int sum_ns = 0;
     for(int i=0; i < ITERATIONS; i++){
@@ -168,6 +206,16 @@ int average_time_sort_function(sort_func sfunc, array_func afunc, int size){
     }
     return sum_ns/ITERATIONS;
 }
+
+
+/**
+ * @brief Calculates the average result of multiple executions of a search-function.
+ * 
+ * @param sfunc Search-function.
+ * @param afunc Function for array generation.
+ * @param size Size of the array.
+ * @return Average execution time.
+ */
 
 int average_time_search_function(search_func sfunc, array_search_func afunc, int size){
     int sum_ns = 0;
