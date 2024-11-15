@@ -18,4 +18,7 @@ bool linear_search(const int *arr, int n, int v);
 // binary_search checks whether a value v is in a sorted arrray arr of length n
 bool binary_search(const int *arr, int n, int v);
 
+// bubble_sort sorts an array arr of length n in descending order
+void bubble_sort_descending(int *a, int n);
+
 #endif

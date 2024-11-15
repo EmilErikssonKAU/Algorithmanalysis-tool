@@ -79,7 +79,7 @@ static void quick_sort_recursion(int* a, int low, int high) {
 
 
 /**
- * @brief Sorts an integer array using bubblesort algorithm.
+ * @brief Sorts an integer array in ascending using bubblesort algorithm.
  * 
  * @param a Pointer to an array of integers.
  * @param n Number of elements in the array.
@@ -199,4 +199,31 @@ bool binary_search(const int *a, int n, int v)
 
 	return false;
 
+}
+
+/**
+ * @brief Sorts an integer array in descending order using bubblesort algorithm.
+ * 
+ * @param a Pointer to an array of integers.
+ * @param n Number of elements in the array.
+ * 
+ * @pre 'a' is an array of 'n' integers 
+ * @post 'a' is sorted in ascending order
+ */
+
+void bubble_sort_descending(int *a, int n)
+{
+	bool swapped;
+
+	for(int i=n-1; i >= 0; i--){
+		swapped = false;
+		for(int j=0; j < i; j++){
+			if(a[j] < a[j+1]){
+				swap(a+j,a+j+1);
+				swapped = true;
+			}
+		}
+		if(!swapped)
+			break;
+	}
 }

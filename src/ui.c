@@ -60,6 +60,7 @@ static void ui_line(char c, int n)
 	putchar('\n');
 }
 
+
 /**
  * @brief Prints a list of menu options with alphabetic labels.
  * 
@@ -75,6 +76,7 @@ static void ui_menu_options(const char *options[], int num_options)
 		printf("    %c) %s\n", 'a'+i, options[i]);
 	}
 }
+
 
 /**
  * @brief Prints the menu options available to the user.
@@ -116,6 +118,11 @@ static void ui_menu()
 // Public
 //
 
+
+/**
+ * @brief Main ui loop
+ * 
+ */
 
 void ui_run()
 {
