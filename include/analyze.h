@@ -49,6 +49,16 @@ typedef struct{
 	double time_n_cubed_s;
 } time_analysis_struct;
 
+
+typedef enum{
+	O_1,
+	O_LOGN,
+	O_N,
+	O_NLOGN,
+	O_2,
+	O_3
+} time_complexity_t;
+
 // benchmark benchmarks an algorithm a for a specific case c, writing n results
 // to the result buffer buf
 void benchmark(const algorithm_t a, const case_t c, result_t *buf, int n);

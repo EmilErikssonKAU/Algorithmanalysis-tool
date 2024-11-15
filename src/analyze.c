@@ -105,7 +105,7 @@ void benchmark(const algorithm_t a, const case_t c, result_t *buf, int n)
             break;
     }
 
-    time_analysis_struct* t_a = do_time_analysis(buf, n);
+    time_analysis_struct** t_a = do_time_analysis(buf, n);
     ui_print_results(t_a, n);
 }
 
@@ -235,22 +235,52 @@ double average_time_search_function(search_func sfunc, array_search_func afunc, 
     return sum_s;
 }
 
+/**
+ * @brief Fills a time_analysis_struct with quotients of the time divided by n-based factors.
+ * 
+ * @param buf Struct containing size and execution-time.
+ * @param n The number of entries in 'buf'
+ * @return pointer to time_analysis_struct containing result of all divisions
+ */
 
-time_analysis_struct* do_time_analysis(result_t* buf, int size){
-    time_analysis_struct* t_a = malloc(sizeof(time_analysis_struct));
-    for(int i=0; i <size; i++){
+time_analysis_struct** do_time_analysis(result_t* buf, int n){
+    time_analysis_struct** t_a_array = malloc(sizeof(time_analysis_struct*)*n);
+
+    for(int i=0; i <n; i++){
+        time_analysis_struct* t_a = malloc(sizeof(time_analysis_struct));
         int n = buf[i].size;
         int time = buf[i].time;
 
-        t_a->size = size;
+        t_a->size = n;
         t_a->time_s = time;
         t_a->time_logn_s = time/log2(n);
         t_a->time_n_s = time/n;
         t_a->time_nlogn_s = time/(n*log2(n));
         t_a->time_n_squared_s = time/(pow(n,2));
         t_a->time_n_cubed_s = time/(pow(n,3)); 
+
+        t_a_array[i] = t_a;
     }
+    return t_a_array;
 }
+
+time_complexity_t determineTimeComplexity(time_analysis_struct** t_a_array, int n){
+    // Vi avgöra genom att hitta det värdet för vilken kvoten mellan
+    // de två tiden för de två största storlekarna är närmast 1
+    time_analysis_struct* t_a_largest = t_a_array[n-1];
+    time_analysis_struct* t_a_second_largest = t_a_array[n-2];
+
+    double logn_dif = fabs(t_a_second_largest->time_logn_s/t_a_largest->time_logn_s);
+    double n_dif = fabs(t_a_second_largest->time_n_s/t_a_largest->time_n_s);
+    double nlogn_dif = fabs(t_a_second_largest->time_nlogn_s/t_a_largest->time_nlogn_s);
+    double n_squared_dif = fabs(t_a_second_largest->time_n_squared_s/t_a_largest->time_n_squared_s);
+    double n_cubed_dif = fabs(t_a_second_largest->time_n_cubed_s/t_a_largest->time_n_cubed_s);
+
+}
+
+
+
+
 
 
 

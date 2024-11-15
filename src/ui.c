@@ -204,6 +204,16 @@ void ui_run()
 
 
 void ui_print_results(time_analysis_struct* t_a, int n){
+
+	const char* equations[] = {
+		"T(s)",
+		"T/logn",
+		"T/n",
+		"T/nlogn"
+		"T/n²",
+		"T/n³"
+	};
+
 	ui_line('*', MENU_WIDTH);
 	// TODO: print algorithm name
 	ui_line('-', MENU_WIDTH);
