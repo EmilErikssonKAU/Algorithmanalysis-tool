@@ -105,7 +105,8 @@ void benchmark(const algorithm_t a, const case_t c, result_t *buf, int n)
             break;
     }
 
-    ui_print_results(buf, n);
+    time_analysis_struct* t_a = do_time_analysis(buf, n);
+    ui_print_results(t_a, n);
 }
 
 /**
@@ -155,17 +156,17 @@ void simulate_search(search_func sfunc, array_search_func afunc, result_t* buf, 
  * @param sfunc Sort-function.
  * @param array Array to be sorted.
  * @param size Size of the array.
- * @return Execution time.
+ * @return Execution time in nanoseconds.
  */
 
-int time_sort_function(sort_func sfunc, int* array, int size){
+long int time_sort_function(sort_func sfunc, int* array, int size){
     struct timespec start, end;
 
     clock_gettime(CLOCK_MONOTONIC, &start);
     (*sfunc)(array, size);
     clock_gettime(CLOCK_MONOTONIC, &end);
 
-    return end.tv_nsec - start.tv_nsec;
+    return (long int)(end.tv_nsec - start.tv_nsec);
 
 }
 /**
@@ -174,17 +175,17 @@ int time_sort_function(sort_func sfunc, int* array, int size){
  * @param sfunc Search-function.
  * @param a_v Struct with an array and the element to find within it.
  * @param size Size of the array.
- * @return Execution time.
+ * @return Execution time in nanoseconds.
  */
 
-int time_search_function(search_func sfunc, array_and_value* a_v, int size){
+long int time_search_function(search_func sfunc, array_and_value* a_v, int size){
     struct timespec start, end;    
         
     clock_gettime(CLOCK_MONOTONIC, &start);
     (*sfunc)(a_v->array, a_v->element, size);
     clock_gettime(CLOCK_MONOTONIC, &end);
 
-    return end.tv_nsec - start.tv_nsec;
+    return (long int)(end.tv_nsec - start.tv_nsec);
 }
 
 
@@ -194,17 +195,20 @@ int time_search_function(search_func sfunc, array_and_value* a_v, int size){
  * @param sfunc Sort-function.
  * @param afunc Function for array generation.
  * @param size Size of the array.
- * @return Average execution time.
+ * @return Average execution time in seconds.
  */
 
-int average_time_sort_function(sort_func sfunc, array_func afunc, int size){
-    int sum_ns = 0;
+double average_time_sort_function(sort_func sfunc, array_func afunc, int size){
+    double sum_ns = 0;
+    double sum_s;
     for(int i=0; i < ITERATIONS; i++){
         int* array = (*afunc)(size);
         sum_ns += time_sort_function(sfunc, array, size);
         free(array);
     }
-    return sum_ns/ITERATIONS;
+    sum_ns /= ITERATIONS;
+    sum_s = sum_ns / pow(10,9);
+    return sum_s;
 }
 
 
@@ -214,18 +218,38 @@ int average_time_sort_function(sort_func sfunc, array_func afunc, int size){
  * @param sfunc Search-function.
  * @param afunc Function for array generation.
  * @param size Size of the array.
- * @return Average execution time.
+ * @return Average execution time in seconds.
  */
 
-int average_time_search_function(search_func sfunc, array_search_func afunc, int size){
-    int sum_ns = 0;
+double average_time_search_function(search_func sfunc, array_search_func afunc, int size){
+    double sum_ns = 0;
+    double sum_s;
     for(int i=0; i < ITERATIONS; i++){
         array_and_value* a_v= (*afunc)(size);
         sum_ns += time_search_function(sfunc, a_v, size);
         // continue ...
         //
     }
-    return sum_ns/ITERATIONS;
+    sum_ns /= ITERATIONS;
+    sum_s = sum_ns / pow(10,9);
+    return sum_s;
+}
+
+
+time_analysis_struct* do_time_analysis(result_t* buf, int size){
+    time_analysis_struct* t_a = malloc(sizeof(time_analysis_struct));
+    for(int i=0; i <size; i++){
+        int n = buf[i].size;
+        int time = buf[i].time;
+
+        t_a->size = size;
+        t_a->time_s = time;
+        t_a->time_logn_s = time/log2(n);
+        t_a->time_n_s = time/n;
+        t_a->time_nlogn_s = time/(n*log2(n));
+        t_a->time_n_squared_s = time/(pow(n,2));
+        t_a->time_n_cubed_s = time/(pow(n,3)); 
+    }
 }
 
 

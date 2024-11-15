@@ -150,12 +150,46 @@ void ui_run()
 				benchmark(bubble_sort_t, best_t, result, RESULT_ROWS);
 				break;
 			case 'd': 
-				printf("Registred d");
 				benchmark(bubble_sort_t, worst_t, result, RESULT_ROWS);
-				printf("Complete");
 				break;
 			case 'e': 
 				benchmark(bubble_sort_t, average_t, result, RESULT_ROWS);
+				break;
+			case 'f':
+				benchmark(insertion_sort_t, best_t, result, RESULT_ROWS);
+				break;
+			case 'g':
+				benchmark(insertion_sort_t, worst_t, result, RESULT_ROWS);
+				break;
+			case 'h':
+				benchmark(insertion_sort_t, average_t, result, RESULT_ROWS);
+				break;
+			case 'i':
+				benchmark(quick_sort_t, best_t, result, RESULT_ROWS);
+				break;
+			case 'j':
+				benchmark(quick_sort_t, worst_t, result, RESULT_ROWS);
+				break;
+			case 'k':
+				benchmark(quick_sort_t, average_t, result, RESULT_ROWS);
+				break;
+			case 'l':
+				benchmark(linear_search_t, best_t, result, RESULT_ROWS);
+				break;
+			case 'm':
+				benchmark(linear_search_t, worst_t, result, RESULT_ROWS);
+				break;
+			case 'n':
+				benchmark(linear_search_t, average_t, result, RESULT_ROWS);
+				break;
+			case 'o':
+				benchmark(binary_search_t, best_t, result, RESULT_ROWS);
+				break;
+			case 'p':
+				benchmark(binary_search_t, worst_t, result, RESULT_ROWS);
+				break;
+			case 'q':
+				benchmark(binary_search_t, average_t, result, RESULT_ROWS);
 				break;
 				
 			// Invalid input
@@ -169,14 +203,10 @@ void ui_run()
 }
 
 
-void ui_print_results(result_t* buf, int n){
+void ui_print_results(time_analysis_struct* t_a, int n){
 	ui_line('*', MENU_WIDTH);
 	// TODO: print algorithm name
 	ui_line('-', MENU_WIDTH);
 	// TODO: print headlines
 
-	for(int i=0; i<n; i++){
-		printf("%d  %lf", buf[i].size, buf[i].time/pow(10,6));
-		printf("\n");
-	}
 }
