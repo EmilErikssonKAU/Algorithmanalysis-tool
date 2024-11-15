@@ -1,4 +1,5 @@
 #include "../include/algorithm.h"
+#include "../include/arraygeneration.h"
 #include <stdlib.h>
 #include <time.h>
 
@@ -81,4 +82,20 @@ int* getRandomizedArray(int size){
     int* array = getFilledArray(size);
     shuffleArray(array, size);
     return array;
+}
+
+array_and_value* getBestCaseLinearSearch(){
+
+}
+
+array_and_value* getWorstCaseLinearSearch(){
+
+}
+
+array_and_value* getBestCaseBinarySearch(){
+
+}
+
+array_and_value* getWorstCaseBinarySearch(){
+    
 }
