@@ -1,3 +1,6 @@
+#ifndef ARRAYGENERATION_H
+#define ARRAYGENERATION_H
+
 typedef struct {
     int* array;
     int element;
@@ -20,3 +23,5 @@ int* getSortedAscendingArray(int size);
 int* getSortedDescendingArray(int size);
 
 int* getRandomizedArray(int size);
+
+#endif

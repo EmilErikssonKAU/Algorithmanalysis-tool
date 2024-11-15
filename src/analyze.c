@@ -1,22 +1,15 @@
 #include "../include/analyze.h"
 #include "../include/algorithm.h"
 #include "../include/arraygeneration.h"
+#include "../include/ui.h"
 
 #define _POSIX_C_SOURCE 199309L
 
 #include <stddef.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
-
-//
-// Typedefs
-//
-
-typedef void (*sort_func)(int*, int);
-typedef bool (*search_func)(const int*, int, int);
-typedef int* (*array_func)(int);
-typedef array_and_value* (*array_search_func)(int);
     
 
 //
@@ -47,10 +40,10 @@ void benchmark(const algorithm_t a, const case_t c, result_t *buf, int n)
         case bubble_sort_t:
             switch (c) {
                 case best_t:
-                    simulate_sort(&bubble_sort, &getBestCaseBubbleSort, buf, n);
+                    simulate_sort(bubble_sort, getBestCaseBubbleSort, buf, n);
                     break;
                 case worst_t:
-                    printf("Handling bubble sort in worst case.\n");
+                    simulate_sort(bubble_sort, getWorstCaseBubbleSort, buf, n);
                     break;
                 case average_t:
                     printf("Handling bubble sort in average case.\n");
@@ -118,10 +111,12 @@ void benchmark(const algorithm_t a, const case_t c, result_t *buf, int n)
             printf("Unknown algorithm type.\n");
             break;
     }
+
+    ui_print_results(buf, n);
 }
 
 
-void simulate_sort(sort_func* sfunc, array_func* afunc, result_t* buf, int n)
+void simulate_sort(sort_func sfunc, array_func afunc, result_t* buf, int n)
 {
     // TODO: warmup
 
@@ -134,21 +129,16 @@ void simulate_sort(sort_func* sfunc, array_func* afunc, result_t* buf, int n)
 
 }
 
-void simulate_search(search_func* sfunc, array_search_func* afunc, result_t* buf, int n)
+void simulate_search(search_func sfunc, array_search_func afunc, result_t* buf, int n)
 {
     // TODO: warmup
 
 
-    int size = SIZE_START;
-    for(int i=0; i<n; i++){
-        buf[i].size = size;
-        buf[i].time = average_time_sort_function(sfunc, afunc, size);
-        size *= 2;
-    }
+
 }
 
 
-int time_sort_function(sort_func* sfunc, int* array, int size){
+int time_sort_function(sort_func sfunc, int* array, int size){
     struct timespec start, end;
 
     clock_gettime(CLOCK_MONOTONIC, &start);
@@ -159,7 +149,7 @@ int time_sort_function(sort_func* sfunc, int* array, int size){
 
 }
 
-int time_search_function(search_func* sfunc, array_and_value* a_v, int size){
+int time_search_function(search_func sfunc, array_and_value* a_v, int size){
     struct timespec start, end;    
         
     clock_gettime(CLOCK_MONOTONIC, &start);
@@ -169,7 +159,7 @@ int time_search_function(search_func* sfunc, array_and_value* a_v, int size){
     return end.tv_nsec - start.tv_nsec;
 }
 
-int average_time_sort_function(sort_func* sfunc, array_func* afunc, int size){
+int average_time_sort_function(sort_func sfunc, array_func afunc, int size){
     int sum_ns = 0;
     for(int i=0; i < ITERATIONS; i++){
         int* array = (*afunc)(size);
@@ -179,7 +169,7 @@ int average_time_sort_function(sort_func* sfunc, array_func* afunc, int size){
     return sum_ns/ITERATIONS;
 }
 
-int average_time_search_function(sort_func* sfunc, array_search_func* afunc, int size){
+int average_time_search_function(search_func sfunc, array_search_func afunc, int size){
     int sum_ns = 0;
     for(int i=0; i < ITERATIONS; i++){
         array_and_value* a_v= (*afunc)(size);

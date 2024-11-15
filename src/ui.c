@@ -4,6 +4,7 @@
 
 #include <stdbool.h>
 #include <stdio.h>
+#include <math.h>
 
 //
 // Private
@@ -147,15 +148,14 @@ void ui_run()
 			// Bubble sort
 			case 'c':
 				benchmark(bubble_sort_t, best_t, result, RESULT_ROWS);
-				printf("todo> implement\n");
 				break;
 			case 'd': 
+				printf("Registred d");
 				benchmark(bubble_sort_t, worst_t, result, RESULT_ROWS);
-				printf("todo> implement\n");
+				printf("Complete");
 				break;
 			case 'e': 
 				benchmark(bubble_sort_t, average_t, result, RESULT_ROWS);
-				printf("todo> implement\n");
 				break;
 				
 			// Invalid input
@@ -166,4 +166,17 @@ void ui_run()
 		}
 	}
 	ui_exit();
+}
+
+
+void ui_print_results(result_t* buf, int n){
+	ui_line('*', MENU_WIDTH);
+	// TODO: print algorithm name
+	ui_line('-', MENU_WIDTH);
+	// TODO: print headlines
+
+	for(int i=0; i<n; i++){
+		printf("%d  %lf", buf[i].size, buf[i].time/pow(10,6));
+		printf("\n");
+	}
 }
