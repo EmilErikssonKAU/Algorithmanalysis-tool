@@ -1,6 +1,9 @@
 #include "../include/io.h"
+#include "../include/ui.h"
+#include "../include/analyze.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 //
 // Private

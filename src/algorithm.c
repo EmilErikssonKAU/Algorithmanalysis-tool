@@ -227,3 +227,8 @@ void bubble_sort_descending(int *a, int n)
 			break;
 	}
 }
+
+
+void reverseQuickSort(int* a, int size){
+
+}

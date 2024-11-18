@@ -2,10 +2,27 @@
 #include "../include/arraygeneration.h"
 #include <stdlib.h>
 #include <time.h>
+static void reverseQuickSortHigh(int* array, int low, int high);
 
 //
 // Private
 //
+
+/**
+ * @brief Swaps the values of two integers.
+ *
+ * @param a Pointer to the first integer.
+ * @param b Pointer to the second integer.
+ *
+ * @pre 'a' and 'b' are valid pointers to integers.
+ * @post The values pointed to by 'a' and 'b' are exchanged.
+ */
+
+static void swap(int* a, int* b) {
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
 
 /**
  * @brief Genereate array with integers in ascending order
@@ -40,8 +57,28 @@ static void shuffleArray(int* array, int size){
         array[i] = array[j];
         array[j] = temp;
     }
+}
 
-    return array;
+/**
+ * @brief 
+ * 
+ * @param array 
+ * @param low 
+ * @param high 
+ * 
+ * @pre Array is sorted
+ */
+
+
+static void reverseQuickSortHigh(int* array, int low, int high){
+    if(high <= low){
+        return;
+    }
+    int size = high-low+1;
+    int middle_index = low + (size-1)/2;
+    swap(array+middle_index, array+ high);
+    reverseQuickSortHigh(array, low, middle_index-1);
+    reverseQuickSortHigh(array, middle_index, high-1);
 }
 
 
@@ -108,7 +145,9 @@ int* getWorstCaseInsertionSort(int size){
  */
 
 int* getBestCaseQuickSortHigh(int size){
-    return NULL;
+    int*array = getSortedAscendingArray(size);
+    reverseQuickSortHigh(array, 0, size-1);
+    return array;
 }
 
 

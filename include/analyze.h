@@ -2,7 +2,7 @@
 #define ANALYZE_H
 
 #define SIZE_START 512
-#define ITERATIONS 4
+#define ITERATIONS 7
 
 #include "../include/arraygeneration.h"
 #include <stdbool.h>
@@ -55,8 +55,8 @@ typedef enum{
 	O_LOGN,
 	O_N,
 	O_NLOGN,
-	O_2,
-	O_3
+	O_N_SQUARED,
+	O_N_CUBED
 } time_complexity_t;
 
 // benchmark benchmarks an algorithm a for a specific case c, writing n results
@@ -74,5 +74,9 @@ long int time_search_function(search_func sfunc, array_and_value* a_v, int size)
 double average_time_sort_function(sort_func sfunc, array_func afunc, int size);
 
 double average_time_search_function(search_func sfunc, array_search_func afunc, int size);
+
+time_analysis_struct** do_time_analysis(result_t* buf, int n);
+
+time_complexity_t determineTimeComplexity(time_analysis_struct** t_a_array, int n);
 
 #endif

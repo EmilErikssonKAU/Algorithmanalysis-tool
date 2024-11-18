@@ -1,6 +1,7 @@
 #include "../include/ui.h"
 #include "../include/io.h"
 #include "../include/analyze.h"
+#include "../include/results.h"
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -203,20 +204,15 @@ void ui_run()
 }
 
 
-void ui_print_results(time_analysis_struct* t_a, int n){
+// void ui_print_results(time_analysis_struct** t_a, time_complexity_t t_c, int n){
+// 	char** headline = build_headline(t_c);
+// 	ui_line('*', MENU_WIDTH);
 
-	const char* equations[] = {
-		"T(s)",
-		"T/logn",
-		"T/n",
-		"T/nlogn"
-		"T/n²",
-		"T/n³"
-	};
+// 	for(int i=0; i <5; i++){
+// 		printf("%s   ", headline);
+// 	}
+// 	printf("\n");
 
-	ui_line('*', MENU_WIDTH);
-	// TODO: print algorithm name
-	ui_line('-', MENU_WIDTH);
-	// TODO: print headlines
+// 	ui_line('-', MENU_WIDTH);
 
-}
+// }
