@@ -96,7 +96,7 @@ static void reverseQuickSortHigh(int* array, int low, int high){
     int middle_index = low + (size-1)/2;
     swap(array+middle_index, array+ high);
     reverseQuickSortHigh(array, low, middle_index-1);
-    reverseQuickSortHigh(array, middle_index, high-1);
+    reverseQuickSortHigh(array, middle_index+1, high-1);
 }
 
 
