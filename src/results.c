@@ -137,7 +137,7 @@ void prepareResult(const algorithm_t a, const case_t c, result_t *buf, int n){
 char** build_headline(time_complexity_t t_c){
     char* titles [] = {
         "Size",
-        "T(n)",
+        "T(s)",
         "T/logn",
         "T/n",
         "T/nlogn",
