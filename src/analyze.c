@@ -144,7 +144,7 @@ void simulate_sort(sort_func sfunc, array_func afunc, result_t* buf, int n)
 
 void simulate_search(search_func sfunc, array_search_func afunc, result_t* buf, int n)
 {
-    // TODO: warmup
+    warmup();
 
     int size = SIZE_START;
     for(int i=0; i<n; i++){

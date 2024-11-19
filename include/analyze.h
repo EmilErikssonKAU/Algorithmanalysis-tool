@@ -1,8 +1,11 @@
 #ifndef ANALYZE_H
 #define ANALYZE_H
 
-#define SIZE_START 512
+// INCREASE TO IMPROVE ACCURACY, BUT LOWER PERFORMANCE
 #define ITERATIONS 7
+
+// DO NOT TOUCH
+#define SIZE_START 512
 
 #include "../include/arraygeneration.h"
 #include <stdbool.h>

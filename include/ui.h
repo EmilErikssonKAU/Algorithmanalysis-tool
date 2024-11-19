@@ -3,8 +3,11 @@
 
 #include "../include/analyze.h"
 
+// INCREASE TO IMPROVE PRECISION, BUT LOWER PERFORMANCE
+#define RESULT_ROWS 6
+
+// DO NOT TOUCH
 #define MENU_WIDTH 80
-#define RESULT_ROWS 7
 #define RESULT_FIELDS 5
 #define MAX_FIELD_LENGTH 7
 
