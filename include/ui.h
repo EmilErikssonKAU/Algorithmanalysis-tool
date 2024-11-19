@@ -3,7 +3,7 @@
 
 #include "../include/analyze.h"
 
-#define MENU_WIDTH 40
+#define MENU_WIDTH 80
 #define RESULT_ROWS 7
 #define RESULT_FIELDS 5
 #define MAX_FIELD_LENGTH 7

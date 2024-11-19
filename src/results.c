@@ -5,6 +5,14 @@
 #include <stdio.h>
 #include <string.h>
 
+static void ui_line(char c, int n)
+{
+	while (n-- > 0) {
+		putchar(c);
+	}
+	putchar('\n');
+}
+
 /**
  * @brief 
  * 
@@ -118,10 +126,19 @@ void prepareResult(result_t *buf, int n){
     time_analysis_struct** t_a = do_time_analysis(buf, n);
     time_complexity_t t_c = determineTimeComplexity(t_a,n);
 
+    ui_line('*', MENU_WIDTH);
+    char* str = "NAME OF CHOICE";
+    printf("%*s", MENU_WIDTH/2+(int)strlen(str)/2,str );
+    printf("\n");
+    ui_line('-', MENU_WIDTH);
+
+
+
     char** headline = build_headline(t_c);
 
     for(int i=0; i <RESULT_FIELDS; i++){
-        printf("%s  ", headline[i]);
+        printf("%-*s", MENU_WIDTH/RESULT_FIELDS-1,headline[i]);
+        printf("|");
     }
 
     printf("\n\n");
@@ -131,14 +148,17 @@ void prepareResult(result_t *buf, int n){
     for(int i=0; i<n; i++){
         for(int j=0; j<RESULT_FIELDS; j++){
             if(j==0){
-                printf("%d   ", (int)*result_lines[i][j]);
+                printf("%-*d", MENU_WIDTH/RESULT_FIELDS-1 ,(int)*result_lines[i][j]);
+                printf("|");
                 continue;
             }
             if(j==1){
-                printf("%.9lf  ", *result_lines[i][j]);
+                printf("%-*.7lf", MENU_WIDTH/RESULT_FIELDS-1 ,*result_lines[i][j]);
+                printf("|");
                 continue;
             }
-            printf("%e   ", *result_lines[i][j]);
+            printf("%-*e", MENU_WIDTH/RESULT_FIELDS-1,*result_lines[i][j]);
+            printf("|");
         }
         printf("\n");
     }

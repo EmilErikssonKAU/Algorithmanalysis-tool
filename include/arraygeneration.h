@@ -32,6 +32,6 @@ array_and_value* getBestCaseBinarySearch(int size);
 
 array_and_value* getWorstCaseBinarySearch(int size);
 
-
+array_and_value* getAverageCaseSearch(int size);
 
 #endif

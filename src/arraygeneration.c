@@ -41,6 +41,24 @@ static int* getFilledArray(int size){
 
 
 /**
+ * @brief Genereate array with integers in descending order
+ * 
+ * @param size Number of integers
+ * @return The array
+ */
+
+static int* getFilledArrayReverse(int size){
+    int* array = malloc(size * sizeof(int));
+    int nextelem = size - 1;
+    for(int i=0; i < size; i++){
+        array[i] = nextelem;
+        nextelem--;
+    }
+    return array;
+}
+
+
+/**
  * @brief Randomly shuffles order of array
  * 
  * @param array The array
@@ -186,8 +204,7 @@ int* getSortedAscendingArray(int size){
  */
 
 int* getSortedDescendingArray(int size){
-    int* array = getFilledArray(size);
-    bubble_sort_descending(array, size);
+    int * array = getFilledArrayReverse(size);
     return array;
 }
 
@@ -262,5 +279,21 @@ array_and_value* getWorstCaseBinarySearch(int size){
     array_and_value* a_v = malloc(sizeof(array_and_value));
     a_v->array = getSortedAscendingArray(size);
     a_v->element = 0; 
+    return a_v;
+}
+
+/**
+ * @brief Get the Average Case Search object
+ * 
+ * @param size 
+ * @return array_and_value* 
+ */
+
+array_and_value* getAverageCaseSearch(int size){
+    srand(time(NULL));
+
+    array_and_value* a_v = malloc(sizeof(array_and_value));
+    a_v->array = getSortedAscendingArray(size);
+    a_v->element = rand() % size;
     return a_v;
 }

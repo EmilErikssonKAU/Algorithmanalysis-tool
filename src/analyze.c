@@ -81,7 +81,7 @@ void benchmark(const algorithm_t a, const case_t c, result_t *buf, int n)
                     simulate_search(linear_search, getWorstCaseLinearSearch, buf, n);
                     break;
                 case average_t:
-                    printf("Handling linear search in average case.\n");
+                    simulate_search(linear_search, getAverageCaseSearch, buf, n);
                     break;
             }
             break;
@@ -89,13 +89,13 @@ void benchmark(const algorithm_t a, const case_t c, result_t *buf, int n)
         case binary_search_t:
             switch (c) {
                 case best_t:
-                    printf("Handling binary search in best case.\n");
+                    simulate_search(binary_search, getBestCaseBinarySearch, buf,n);
                     break;
                 case worst_t:
-                    printf("Handling binary search in worst case.\n");
+                    simulate_search(binary_search, getWorstCaseBinarySearch, buf, n);
                     break;
                 case average_t:
-                    printf("Handling binary search in average case.\n");
+                    simulate_search(binary_search, getAverageCaseSearch, buf, n);
                     break;
             }
             break;
@@ -191,7 +191,7 @@ long int time_search_function(search_func sfunc, array_and_value* a_v, int size)
     long int result;  
         
     clock_gettime(CLOCK_MONOTONIC, &start);
-    (*sfunc)(a_v->array, a_v->element, size);
+    (*sfunc)(a_v->array, size, a_v->element);
     clock_gettime(CLOCK_MONOTONIC, &end);
     
     result = (end.tv_nsec - start.tv_nsec) + (end.tv_sec-start.tv_sec)*pow(10,9);

@@ -1,4 +1,5 @@
 #include "../include/algorithm.h"
+#include <stdio.h>
 
 //
 // Private
@@ -162,8 +163,9 @@ void quick_sort(int *a, int n)
 bool linear_search(const int *a, int n, int v)
 {
 	for(int i=0; i<n; i++){
-		if(a[i]==v)
+		if(a[i]==v){
 			return true;
+		}
 	}
 	return false;
 }
@@ -228,7 +230,3 @@ void bubble_sort_descending(int *a, int n)
 	}
 }
 
-
-void reverseQuickSort(int* a, int size){
-
-}
