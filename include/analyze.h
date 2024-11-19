@@ -79,4 +79,6 @@ time_analysis_struct** do_time_analysis(result_t* buf, int n);
 
 time_complexity_t determineTimeComplexity(time_analysis_struct** t_a_array, int n);
 
+void warmup();
+
 #endif

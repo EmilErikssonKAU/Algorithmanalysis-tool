@@ -105,7 +105,7 @@ void benchmark(const algorithm_t a, const case_t c, result_t *buf, int n)
             break;
     }
 
-    prepareResult(buf,n);
+    prepareResult(a,c,buf,n);
 
 }
 
@@ -120,7 +120,7 @@ void benchmark(const algorithm_t a, const case_t c, result_t *buf, int n)
 
 void simulate_sort(sort_func sfunc, array_func afunc, result_t* buf, int n)
 {
-    // TODO: warmup
+    warmup();
 
     int size = SIZE_START;
     for(int i=0; i<n; i++){
@@ -312,6 +312,23 @@ time_complexity_t determineTimeComplexity(time_analysis_struct** t_a_array, int 
     }
 
     return min_enum;
+}
+
+/**
+ * @brief Warmup function.
+ * 
+ *  Getting the CPU to work before we start timing it.
+ * 
+ */
+
+void warmup(){
+    int size = SIZE_START;
+    for(int i=0; i<3; i++){
+        int* array = getRandomizedArray(size);
+        bubble_sort(array, size);
+        size *=2;
+        free(array);
+    }
 }
 
 

@@ -5,21 +5,14 @@
 #include <stdio.h>
 #include <string.h>
 
-static void ui_line(char c, int n)
-{
-	while (n-- > 0) {
-		putchar(c);
-	}
-	putchar('\n');
-}
 
 /**
- * @brief 
+ * @brief Builds result lines from a time_analysis_struct.
  * 
- * @param t_c 
- * @param t_a 
- * @param n 
- * @return double*** 
+ * @param t_c Time complexity from the result.
+ * @param t_a The time anlysis data.
+ * @param n Number of array sizes examined.
+ * @return The result lines.
  */
 
 double*** build_result_lines(time_complexity_t t_c, time_analysis_struct** t_a, int n){
@@ -81,10 +74,13 @@ double*** build_result_lines(time_complexity_t t_c, time_analysis_struct** t_a, 
 }
 
 /**
- * @brief 
+ * @brief Convert a given time comlexity to corresponding start index.
  * 
- * @param t_c 
- * @return int 
+ * The index calculated is the start-index for displaying the desired three time complexities
+ * in the result summary.
+ * 
+ * @param t_c Time complexity.
+ * @return Index.
  */
 
 int tc_to_index_start(time_complexity_t t_c){
@@ -118,57 +114,24 @@ int tc_to_index_start(time_complexity_t t_c){
 
 
 /**
- * @brief Prepare result for print
+ * @brief Create the lines to be printed by ui_print_result.
  * 
  */
 
-void prepareResult(result_t *buf, int n){
+void prepareResult(const algorithm_t a, const case_t c, result_t *buf, int n){
     time_analysis_struct** t_a = do_time_analysis(buf, n);
     time_complexity_t t_c = determineTimeComplexity(t_a,n);
-
-    ui_line('*', MENU_WIDTH);
-    char* str = "NAME OF CHOICE";
-    printf("%*s", MENU_WIDTH/2+(int)strlen(str)/2,str );
-    printf("\n");
-    ui_line('-', MENU_WIDTH);
-
-
-
     char** headline = build_headline(t_c);
-
-    for(int i=0; i <RESULT_FIELDS; i++){
-        printf("%-*s", MENU_WIDTH/RESULT_FIELDS-1,headline[i]);
-        printf("|");
-    }
-
-    printf("\n\n");
-
     double*** result_lines = build_result_lines(t_c, t_a, n);
-
-    for(int i=0; i<n; i++){
-        for(int j=0; j<RESULT_FIELDS; j++){
-            if(j==0){
-                printf("%-*d", MENU_WIDTH/RESULT_FIELDS-1 ,(int)*result_lines[i][j]);
-                printf("|");
-                continue;
-            }
-            if(j==1){
-                printf("%-*.7lf", MENU_WIDTH/RESULT_FIELDS-1 ,*result_lines[i][j]);
-                printf("|");
-                continue;
-            }
-            printf("%-*e", MENU_WIDTH/RESULT_FIELDS-1,*result_lines[i][j]);
-            printf("|");
-        }
-        printf("\n");
-    }
+    char* title = algorithm_to_string(a,c);
+    ui_print_result(headline, result_lines, title, n);
 }
 
 /**
- * @brief 
+ * @brief Constructs a headline for the ui based on time complexity of case.
  * 
- * @param t_c 
- * @return char** 
+ * @param t_c Time complexity.
+ * @return Headline.
  */
 
 char** build_headline(time_complexity_t t_c){
@@ -200,4 +163,76 @@ char** build_headline(time_complexity_t t_c){
     }
 
     return headline;
+}
+
+
+/**
+ * @brief Converts the algorithm and the case analyzed to a string.
+ * 
+ * @param a Algorithm.
+ * @param c Case.
+ * @return Corresponding string-
+ */
+
+char* algorithm_to_string(const algorithm_t a, const case_t c){
+    switch (a) {
+        case bubble_sort_t:
+            switch (c) {
+                case best_t:
+                    return "Bubble sort best case";
+                case worst_t:
+                    return "Bubble sort worst case";
+                case average_t:
+                    return "Bubble sort average case";
+            }
+            break;
+
+        case insertion_sort_t:
+            switch (c) {
+                case best_t:
+                    return "Insertion sort best case";
+                case worst_t:
+                    return "Insertion sort worst case";
+                case average_t:
+                    return "Insertion sort average case";
+            }
+            break;
+
+        case quick_sort_t:
+            switch (c) {
+                case best_t:
+                    return "Quick sort best case";
+                case worst_t:
+                    return "Quick sort worst case";
+                case average_t:
+                    return "Quick sort average case";
+            }
+            break;
+
+        case linear_search_t:
+            switch (c) {
+                case best_t:
+                    return "Linear search best case";
+                case worst_t:
+                    return "Linear search worst case";
+                case average_t:
+                    return "Linear search average case";
+            }
+            break;
+
+        case binary_search_t:
+            switch (c) {
+                case best_t:
+                    return "Binary search best case";
+                case worst_t:
+                    return "Binary search worst case";
+                case average_t:
+                    return "Binary search average case";
+            }
+            break;
+
+        default:
+            return "Unknown algorithm";
+    }
+    return NULL;
 }

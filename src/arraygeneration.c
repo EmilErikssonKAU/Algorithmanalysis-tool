@@ -78,13 +78,13 @@ static void shuffleArray(int* array, int size){
 }
 
 /**
- * @brief 
+ * @brief Shuffles array so that it becomes the fastest array for quicksort, with high pivot, to sort.
  * 
- * @param array 
- * @param low 
- * @param high 
+ * @param array The array.
+ * @param low The lower boundary index of 'array'.
+ * @param high The higher boundary index of 'array'.
  * 
- * @pre Array is sorted
+ * @pre Array is sorted in ascending order.
  */
 
 
@@ -283,10 +283,10 @@ array_and_value* getWorstCaseBinarySearch(int size){
 }
 
 /**
- * @brief Get the Average Case Search object
+ * @brief Get an array, sorted in ascending order, with a random value in that array.
  * 
- * @param size 
- * @return array_and_value* 
+ * @param size Size of the array
+ * @return Struct with the array and a random value from the array. 
  */
 
 array_and_value* getAverageCaseSearch(int size){

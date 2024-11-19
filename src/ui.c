@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 
 //
 // Private
@@ -203,16 +204,48 @@ void ui_run()
 	ui_exit();
 }
 
+/**
+ * @brief Function that prints result gathered from analysis of algorithm.
+ * 
+ * @param headline Headline.
+ * @param resultlines Result lines.
+ * @param title Title of analyzed case.
+ * @param nlines Number of lines in result lines.
+ */
 
-// void ui_print_results(time_analysis_struct** t_a, time_complexity_t t_c, int n){
-// 	char** headline = build_headline(t_c);
-// 	ui_line('*', MENU_WIDTH);
 
-// 	for(int i=0; i <5; i++){
-// 		printf("%s   ", headline);
-// 	}
-// 	printf("\n");
+void ui_print_result(char** headline, double*** resultlines, char* title, int nlines){
+	ui_line('*', MENU_WIDTH);
+    printf("%*s", MENU_WIDTH/2+(int)strlen(title)/2,title );
+    printf("\n");
+    ui_line('-', MENU_WIDTH);
 
-// 	ui_line('-', MENU_WIDTH);
+    
 
-// }
+    for(int i=0; i <RESULT_FIELDS; i++){
+        printf("%-*s", MENU_WIDTH/RESULT_FIELDS-1,headline[i]);
+        printf("|");
+    }
+
+    printf("\n\n");
+
+    
+
+    for(int i=0; i<nlines; i++){
+        for(int j=0; j<RESULT_FIELDS; j++){
+            if(j==0){
+                printf("%-*d", MENU_WIDTH/RESULT_FIELDS-1 ,(int)*resultlines[i][j]);
+                printf("|");
+                continue;
+            }
+            if(j==1){
+                printf("%-*.8lf", MENU_WIDTH/RESULT_FIELDS-1 ,*resultlines[i][j]);
+                printf("|");
+                continue;
+            }
+            printf("%-*e", MENU_WIDTH/RESULT_FIELDS-1,*resultlines[i][j]);
+            printf("|");
+        }
+        printf("\n");
+    }
+}

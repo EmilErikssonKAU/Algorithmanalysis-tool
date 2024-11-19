@@ -10,6 +10,6 @@
 
 // ui_run starts a terminal-based user interface
 void ui_run();
-void ui_print_results(time_analysis_struct** t_a, time_complexity_t t_c,int n);
+void ui_print_result(char** headline, double*** resultlines, char* title, int nlines);
 
 #endif
